@@ -1,0 +1,83 @@
+2011
+
+{ 'age': 2 },
+{ 'experience': 3 },
+{ 'region': 0 },
+{ 'salary': 45 },
+{ 'programming_languages': [30 - 42] },
+{ 'satisfaction': 44 },
+{ 'gender': None },
+{ 'os': 43 },
+{ 'company_size': 5 }
+
+2012
+
+{ age': 2 },
+{ experience': 3 },
+{ region': 0 },
+{ salary': 39 },
+{ programming_languages': [22 - 36] },
+{ satisfaction': 38 },
+{ gender': None },
+{ os': 37 },
+{ company_size': 5 },
+
+2013
+
+{ age': 2 },
+{ experience': 3 },
+{ region': 0 },
+{ salary': 100 },
+{ programming_languages': [56 - 69] },
+{ satisfaction': 99 },
+{ gender': None },
+{ os': 81 },
+{ company_size': 5 },
+
+2014
+
+{ age': 3 },
+{ experience': 5 },
+{ region': 0 },
+{ salary': 7 },
+{ programming_languages': [42 - 53] },
+{ satisfaction': None },
+{ gender': 4 },
+{ os': 67 },
+{ company_size': 9 },
+
+2015
+
+{ age': 1 },
+{ experience': 4 },
+{ region': 0 },
+{ salary': 105 },
+{ programming_languages': [8 - 50] },
+{ satisfaction': 109 },
+{ gender': 2 },
+{ os': 6 },
+{ company_size': None },
+
+2016
+
+{ age': 'age_range' },
+{ experience': 'experience_range' },
+{ region': 'country' },
+{ salary': 'salary_range' },
+{ programming_languages': ['tech_do'] },
+{ satisfaction': 'job_satisfaction },
+{ gender': 'gender' },
+{ os': 'desktop_os' },
+{ company_size': 'company_size_range' },
+
+2017
+
+{ age': None },
+{ experience': 'YearsProgram' },
+{ region': 'Country' },
+{ salary': 'Salary' },
+{ programming_languages': ['HaveWorkedLanguage'] },
+{ satisfaction': 'JobSatisfaction' },
+{ gender': 'Gender' },
+{ os': 'HaveWorkedPlatform' },
+{ company_size': 'companySize' },
