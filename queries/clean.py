@@ -74,9 +74,15 @@ class Cleaner():
 
         return programming_languages
 
-    def _extract_satisfaction(self, value):
+    def _get_satisfaction(self, data):
+        field = self._data_fields.get('satisfaction')
+        satisfaction_answer = data.get(f'{_STRING_BASE_NAME}{field}')
+
+        if satisfaction_answer is None:
+            return None
+
         for (key, value) in self._satisfaction_map.items():
-            if key in value:
+            if key in satisfaction_answer:
                 return value
 
         return None
@@ -126,6 +132,7 @@ class Cleaner():
             fields.update({'programming_languages': pl})
             import ipdb; ipdb.set_trace()
             fields.update({'salary_range': self._get_salary_range(data)})
+            fields.update({'satisfaction': self._get_satisfaction(data)})
             print(fields)
             break
 
