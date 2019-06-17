@@ -21,7 +21,7 @@
 
 
 Age Range: [0, 20] [21, 25] [26, 30] [31, 40] [41, 50] [>50]
-Experience: [<20k] [20k, 40k] [40k, 60k] [60k, 80k] [80k, 100k] [100k, 120k] [120k, 140k] [>140k]
+Salary Range: [<20k] [20k, 40k] [40k, 60k] [60k, 80k] [80k, 100k] [100k, 120k] [120k, 140k] [>140k]
 company size: [1, 25] [26, 100] [101, 1000] [>1000]
 Satisfaction: Subjetive
     2011 --> {enjoy: 5, hurts: 4, not happy: 1, bills: 3}
