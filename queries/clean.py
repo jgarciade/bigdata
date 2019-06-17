@@ -178,16 +178,19 @@ class Cleaner():
         return salary_range
 
     def _get_company_size_range(self, data):
-        field = self._data_fields.get('salary')
+        field = self._data_fields.get('company_size')
         value = data.get(f'{_STRING_BASE_NAME}{field}')
+
         is_valid = self._is_valid_value(value)
         if value is None or not is_valid:
             return None
 
+        value = self._extract_raw_number_from_range(value)
+
         company_size_range = '>1000'
         for ran in self._company_size_range.values():
             if value in range(ran[0], ran[1] + 1):
-                company_size_range = f'{ran[0]}-{ran[0]}'
+                company_size_range = f'{ran[0]}-{ran[1]}'
         return company_size_range
 
     def _get_age_range(self, data):
