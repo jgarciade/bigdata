@@ -172,9 +172,11 @@ class Cleaner():
             return None
 
         salary_range = '>140k'
+        salary /= 1000
+
         for ran in self._salary_ranges.values():
             if salary in range(ran[0], ran[1] + 1):
-                salary_range = f'{ran[0]}-{ran[0]}'
+                salary_range = f'{ran[0]}-{ran[1]}'
         return salary_range
 
     def _get_company_size_range(self, data):
@@ -272,10 +274,10 @@ class Cleaner():
             json.dump(results, outfile, indent=4, sort_keys=True)
 
 kwargs = {'data_fields': {'age': 2, 'experience': 3, 'region': 0, 'salary': 45,
-                          'programming_languages': [30, 42], 'satisfaction': 44,
-                          'gender': None, 'os': [43], 'company_size': 5},
-            'satisfaction_map': {'enjoy': 5, 'hurts': 4, 'not happy': 1, 'bills': 3},
-            'path_to_file': 'raw_data/2011.json'
-            }
+                        'programming_languages': [30, 42], 'satisfaction': 44,
+                        'gender': None, 'os': [43], 'company_size': 5},
+        'satisfaction_map': {'enjoy': 5, 'hurts': 4, 'not happy': 1, 'bills': 3},
+        'path_to_file': 'raw_data/2011.json'
+        }
 cleaner = Cleaner(**kwargs)
 cleaner.clean_and_save('clean_files/2011.json')
