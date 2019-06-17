@@ -47,6 +47,20 @@ class Cleaner():
         7: [120, 140]
     }
 
+    _company_size_range = {
+        1: [1, 25],
+        2: [26, 100],
+        3: [101, 1000]
+    }
+
+    _age_range = {
+        1: [0, 20],
+        2: [21, 25],
+        3: [26, 30],
+        4: [31, 40],
+        5: [41, 50]
+    }
+
     def __init__(self, data_fields, satisfaction_map, path_to_file):
         '''
         @data_fields: { age': 2, 'experience': 3, 'region': 0, 'salary': 100,
@@ -115,11 +129,35 @@ class Cleaner():
 
     def _get_salary_range(self, data):
         salary = self._extract_raw_salary(data)
+        if salary is None:
+            return None
         salary_range = '>140k'
         for ran in self._salary_ranges.values():
             if salary in range(ran[0], ran[1] + 1):
                 salary_range = f'{ran[0]}-{ran[0]}'
         return salary_range
+
+    def _get_company_size_range(self, data):
+        field = self._data_fields.get('salary')
+        value = data.get(f'{_STRING_BASE_NAME}{field}')
+        if value is None:
+            return None
+        company_size_range = '>1000'
+        for ran in self._company_size_range.values():
+            if value in range(ran[0], ran[1] + 1):
+                company_size_range = f'{ran[0]}-{ran[0]}'
+        return company_size_range
+
+    def _get_age_range(self, data):
+        field = self._data_fields.get('age')
+        value = data.get(f'{_STRING_BASE_NAME}{field}')
+        if value is None:
+            return None
+        age_range = '>50'
+        for ran in self._age_range.values():
+            if value in range(ran[0], ran[1] + 1):
+                age_range = f'{ran[0]}-{ran[0]}'
+        return age_range
 
     def _extract_values(self):
         self._read_file()
@@ -133,6 +171,8 @@ class Cleaner():
             import ipdb; ipdb.set_trace()
             fields.update({'salary_range': self._get_salary_range(data)})
             fields.update({'satisfaction': self._get_satisfaction(data)})
+            fields.update({'company_size_range': self._get_company_size_range(data)})
+            fields.update({'age_range': self._get_age_range(data)})
             print(fields)
             break
 
