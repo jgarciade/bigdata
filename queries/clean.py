@@ -61,6 +61,15 @@ class Cleaner():
         5: [41, 50]
     }
 
+    _experience_range = {
+        1: [0, 2],
+        2: [3, 5],
+        3: [6, 10],
+        4: [10, 15],
+        5: [15, 20],
+        6: [20, 90]
+    }
+
     def __init__(self, data_fields, satisfaction_map, path_to_file):
         '''
         @data_fields: { age': 2, 'experience': 3, 'region': 0, 'salary': 100,
@@ -79,20 +88,48 @@ class Cleaner():
         with open(self._path_to_file) as f:
             self._raw_data = json.load(f)
 
-    def _extract_programming_languages(self, start, end, data):
-        programming_languages = []
-        for i in range(start, end + 1):
-            language = data.get(f'{_STRING_BASE_NAME}{i}')
-            if language is not None:
-                programming_languages.append(language)
+    def _create_list_from_field(self, data, field):
+        result = []
+        pl_indexes = self._data_fields.get(field)
+        if len(pl_indexes) == 1:
+            value = data.get(f'{_STRING_BASE_NAME}{pl_indexes[0]}')
+            is_valid = self._is_valid_value(value)
+            if not is_valid:
+                value = None
+            result.append(value)
+            return result
 
-        return programming_languages
+        for i in range(pl_indexes[0], pl_indexes[1] + 1):
+            value = data.get(f'{_STRING_BASE_NAME}{i}')
+            is_valid = self._is_valid_value(value)
+
+            if value is not None and is_valid:
+                result.append(value)
+
+        return result
+
+    def _extract_programming_languages(self, data):
+        return self._create_list_from_field(data, 'programming_languages')
+
+    def _extract_os(self, data):
+        return self._create_list_from_field(data, 'os')
+
+    def _extract_upper_limit_num_from_string(self, value):
+        # Extracts the max raw salary value
+        value = value.replace(',', '')
+        number = re.findall(r'\d+', value)
+        if len(number) == 0:
+            return None
+        number = number[-1:][0]
+        number = float(number)
+
+        return number
 
     def _get_satisfaction(self, data):
         field = self._data_fields.get('satisfaction')
         satisfaction_answer = data.get(f'{_STRING_BASE_NAME}{field}')
-
-        if satisfaction_answer is None:
+        is_valid = self._is_valid_value(satisfaction_answer)
+        if satisfaction_answer is None or not is_valid:
             return None
 
         for (key, value) in self._satisfaction_map.items():
@@ -101,7 +138,7 @@ class Cleaner():
 
         return None
 
-    def _extract_salary_operator(self, value):
+    def _extract_range_operator(self, value):
         if value is None:
             return value
         salary_operator = value[:1]
@@ -109,28 +146,31 @@ class Cleaner():
             salary_operator = None
         return salary_operator
 
-    def _extract_raw_salary(self, data):
-        field = self._data_fields.get('salary')
-        value = data.get(f'{_STRING_BASE_NAME}{field}')
-        salary_operator = self._extract_salary_operator(value)
+    def _extract_raw_number_from_range(self, value):
+        range_operator = self._extract_range_operator(value)
 
-        # Extracts the max raw salary value
-        value = value.replace(',', '')
-        raw_salary = re.findall(r'\d+', value)
-        raw_salary = raw_salary[-1:][0]
-        raw_salary = float(raw_salary)
+        raw_number = self._extract_upper_limit_num_from_string(value)
+        if raw_number is None:
+            return None
 
-        if salary_operator == '>':
-            raw_salary += 1
-        elif salary_operator == '<':
-            raw_salary -= 1
+        if range_operator == '>':
+            raw_number += 1
+        elif range_operator == '<':
+            raw_number -= 1
 
-        return raw_salary
+        return raw_number
 
     def _get_salary_range(self, data):
-        salary = self._extract_raw_salary(data)
+        field = self._data_fields.get('salary')
+        value = data.get(f'{_STRING_BASE_NAME}{field}')
+        is_valid = self._is_valid_value(value)
+        if value is None or not is_valid:
+            return None
+
+        salary = self._extract_raw_number_from_range(value)
         if salary is None:
             return None
+
         salary_range = '>140k'
         for ran in self._salary_ranges.values():
             if salary in range(ran[0], ran[1] + 1):
@@ -140,8 +180,10 @@ class Cleaner():
     def _get_company_size_range(self, data):
         field = self._data_fields.get('salary')
         value = data.get(f'{_STRING_BASE_NAME}{field}')
-        if value is None:
+        is_valid = self._is_valid_value(value)
+        if value is None or not is_valid:
             return None
+
         company_size_range = '>1000'
         for ran in self._company_size_range.values():
             if value in range(ran[0], ran[1] + 1):
@@ -151,37 +193,86 @@ class Cleaner():
     def _get_age_range(self, data):
         field = self._data_fields.get('age')
         value = data.get(f'{_STRING_BASE_NAME}{field}')
-        if value is None:
+        is_valid = self._is_valid_value(value)
+        if value is None or not is_valid:
             return None
+
         age_range = '>50'
+        age = self._extract_raw_number_from_range(value)
+        if age is None:
+            return None
+
         for ran in self._age_range.values():
-            if value in range(ran[0], ran[1] + 1):
-                age_range = f'{ran[0]}-{ran[0]}'
+            if age in range(ran[0], ran[1] + 1):
+                age_range = f'{ran[0]}-{ran[1]}'
         return age_range
+
+    def _get_experience_range(self, data):
+        field = self._data_fields.get('experience')
+        value = data.get(f'{_STRING_BASE_NAME}{field}')
+        is_valid = self._is_valid_value(value)
+        if value is None or not is_valid:
+            return None
+
+        experience_range = None
+        experience = self._extract_raw_number_from_range(value)
+        if experience is None:
+            return None
+
+        for ran in self._age_range.values():
+            if experience in range(ran[0], ran[1] + 1):
+                experience_range = f'{ran[0]}-{ran[1]}'
+        return experience_range
+
+    def _get_raw_value_from_data(self, data, key):
+        key_index = self._data_fields.get(key, None)
+        if key_index is None:
+            return None
+
+        value = data.get(f'{_STRING_BASE_NAME}{key_index}')
+        is_valid = self._is_valid_value(value)
+        if not is_valid:
+            value = None
+        return value
+
+    def _is_valid_value(self, value):
+        if value is None:
+            return False
+        is_valid = True
+        is_valid = is_valid and ('?' not in value)
+        is_valid = is_valid and ('please' not in value.lower())
+        is_valid = is_valid and ('response' not in value.lower())
+
+        return is_valid
 
     def _extract_values(self):
         self._read_file()
+        results = []
         for data in self._raw_data:
             fields = {}
-            pl_indexes = self._data_fields.get('programming_languages')
-            pl = self._extract_programming_languages(pl_indexes[0],
-                                                     pl_indexes[1],
-                                                     data)
-            fields.update({'programming_languages': pl})
-            import ipdb; ipdb.set_trace()
+            fields.update({'programming_languages': self._extract_programming_languages(data)})
+            fields.update({'os': self._extract_os(data)})
             fields.update({'salary_range': self._get_salary_range(data)})
             fields.update({'satisfaction': self._get_satisfaction(data)})
             fields.update({'company_size_range': self._get_company_size_range(data)})
             fields.update({'age_range': self._get_age_range(data)})
-            print(fields)
-            break
+            fields.update({'experience_range': self._get_experience_range(data)})
+            fields.update({'gender': self._get_raw_value_from_data(data, 'gender')})
+            fields.update({'region': self._get_raw_value_from_data(data, 'region')})
+            fields.update({'gender': self._get_raw_value_from_data(data, 'gender')})
+            results.append(fields)
+        return results
 
+    def clean_and_save(self, file_path_to_save):
+        results = self._extract_values()
+        with open(file_path_to_save, 'w') as outfile:
+            json.dump(results, outfile, indent=4, sort_keys=True)
 
 kwargs = {'data_fields': {'age': 2, 'experience': 3, 'region': 0, 'salary': 45,
                           'programming_languages': [30, 42], 'satisfaction': 44,
-                          'gender': None, 'os': 43, 'company_size': 5},
+                          'gender': None, 'os': [43], 'company_size': 5},
             'satisfaction_map': {'enjoy': 5, 'hurts': 4, 'not happy': 1, 'bills': 3},
             'path_to_file': 'raw_data/2011.json'
             }
 cleaner = Cleaner(**kwargs)
-cleaner._extract_values()
+cleaner.clean_and_save('clean_files/2011.json')

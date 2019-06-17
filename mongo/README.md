@@ -21,6 +21,7 @@
 
 
 Age Range: [0, 20] [21, 25] [26, 30] [31, 40] [41, 50] [>50]
+Experience Range: [0, 2] [3, 5] [6, 10] [10, 15] [15, 20] [20, 90]
 Salary Range: [<20k] [20k, 40k] [40k, 60k] [60k, 80k] [80k, 100k] [100k, 120k] [120k, 140k] [>140k]
 company size: [1, 25] [26, 100] [101, 1000] [>1000]
 Satisfaction: Subjetive
