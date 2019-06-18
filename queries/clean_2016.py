@@ -279,8 +279,8 @@ class Cleaner():
         with open(file_path_to_save, 'w') as outfile:
             json.dump(results, outfile, indent=4, sort_keys=True)
 
-kwargs = {'data_fields': {'age': 'age_range', 'experience': 'experience_range',
-                          'region': 'country', 'salary': 'salary_range',
+kwargs = {'data_fields': {'age': None, 'experience': 'YearsProgram',
+                          'region': 'Country', 'salary': 'salary_range',
                           'programming_languages': ['tech_do'], 'satisfaction':'job_satisfaction',
                           'gender': 'gender', 'os': ['desktop_os'], 'company_size': 'company_size_range'},
             'satisfaction_map': {'Love': 5, 'somewhat satisfied': 4, 'Hate': 1, 'somewhat dissatisfied': 2,
