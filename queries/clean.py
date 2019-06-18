@@ -227,7 +227,7 @@ class Cleaner():
         if experience is None:
             return None
 
-        for ran in self._age_range.values():
+        for ran in self._experience_range.values():
             if experience in range(ran[0], ran[1] + 1):
                 experience_range = f'{ran[0]}-{ran[1]}'
         return experience_range
