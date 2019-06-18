@@ -227,7 +227,7 @@ class Cleaner():
         if experience is None:
             return None
 
-        for ran in self._age_range.values():
+        for ran in self._experience_range.values():
             if experience in range(ran[0], ran[1] + 1):
                 experience_range = f'{ran[0]}-{ran[1]}'
         return experience_range
@@ -276,11 +276,11 @@ class Cleaner():
         with open(file_path_to_save, 'w') as outfile:
             json.dump(results, outfile, indent=4, sort_keys=True)
 
-kwargs = {'data_fields': {'age': 2, 'experience': 3, 'region': 0, 'salary': 100,
-                        'programming_languages': [50, 69], 'satisfaction': 99,
-                        'gender': None, 'os': [81], 'company_size': 5},
-        'satisfaction_map': {'Love': 5, 'enjoy': 4, 'Hate': 1, 'not happy': 2, 'paycheck': 3, 'wish a job': None},
-        'path_to_file': 'raw_data/2013.json'
-        }
+kwargs = {'data_fields': {'age': 1, 'experience': 4, 'region': 0, 'salary': 105,
+                          'programming_languages': [8, 50], 'satisfaction':109,
+                          'gender': 2, 'os': [6], 'company_size': None},
+            'satisfaction_map': {'Love': 5, 'somewhat satisfied': 4, 'Hate': 1, 'somewhat dissatisfied': 2,'neither': 3, 'Other': None},
+            'path_to_file': 'raw_data/2015.json'
+            }
 cleaner = Cleaner(**kwargs)
-cleaner.clean_and_save('clean_files/2013.json')
+cleaner.clean_and_save('clean_files/2015.json')
