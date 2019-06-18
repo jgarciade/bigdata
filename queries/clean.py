@@ -189,6 +189,9 @@ class Cleaner():
 
         value = self._extract_raw_number_from_range(value)
 
+        if value is None:
+            return None
+
         company_size_range = '>1000'
         for ran in self._company_size_range.values():
             if value in range(ran[0], ran[1] + 1):
@@ -273,11 +276,11 @@ class Cleaner():
         with open(file_path_to_save, 'w') as outfile:
             json.dump(results, outfile, indent=4, sort_keys=True)
 
-kwargs = {'data_fields': {'age': 2, 'experience': 3, 'region': 0, 'salary': 45,
-                        'programming_languages': [30, 42], 'satisfaction': 44,
-                        'gender': None, 'os': [43], 'company_size': 5},
-        'satisfaction_map': {'enjoy': 5, 'hurts': 4, 'not happy': 1, 'bills': 3},
-        'path_to_file': 'raw_data/2011.json'
+kwargs = {'data_fields': {'age': 2, 'experience': 3, 'region': 0, 'salary': 100,
+                        'programming_languages': [50, 69], 'satisfaction': 99,
+                        'gender': None, 'os': [81], 'company_size': 5},
+        'satisfaction_map': {'Love': 5, 'enjoy': 4, 'Hate': 1, 'not happy': 2, 'paycheck': 3, 'wish a job': None},
+        'path_to_file': 'raw_data/2013.json'
         }
 cleaner = Cleaner(**kwargs)
-cleaner.clean_and_save('clean_files/2011.json')
+cleaner.clean_and_save('clean_files/2013.json')
