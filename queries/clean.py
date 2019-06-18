@@ -184,7 +184,7 @@ class Cleaner():
         value = data.get(f'{_STRING_BASE_NAME}{field}')
 
         is_valid = self._is_valid_value(value)
-        if value is None or not is_valid:
+        if value is None or not is_valid or '/' in value:
             return None
 
         value = self._extract_raw_number_from_range(value)
