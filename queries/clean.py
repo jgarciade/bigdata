@@ -282,5 +282,6 @@ kwargs = {'data_fields': {'age': 1, 'experience': 4, 'region': 0, 'salary': 105,
             'satisfaction_map': {'Love': 5, 'somewhat satisfied': 4, 'Hate': 1, 'somewhat dissatisfied': 2,'neither': 3, 'Other': None},
             'path_to_file': 'raw_data/2015.json'
             }
+
 cleaner = Cleaner(**kwargs)
 cleaner.clean_and_save('clean_files/2015.json')

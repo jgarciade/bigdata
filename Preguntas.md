@@ -1,9 +1,15 @@
-1. Cuál es la edad de los programadores senior en Alemania?
+1. Cuál es la edad de los programadores senior en Alemania y en ?
 
 Se considera senior un ingeniero que tenga al menos seis años de experiencia
 
 ```
-db.data.aggregate([ {$match: {"experience_range" : {$in: ["6-10","10-15","15-20", "20-90"]} , 'region': 'Germany'}}, {$group: { _id: '$age_range' }} ])
+db.data.aggregate([ {$match: {"experience_range" : {$in: ["6-10","10-15","15-20", "20-90"]} , 'region': 'Germany'}}, {$group: { _id: '$age_range' }}, {$out: 'q1'}])
+```
+
+To export the result
+
+```
+mongoexport --db stackoverflow --collection q1 --out q1.json
 ```
 
 2. Cuáles son los 5 paises que mas tienen programadores?
@@ -12,8 +18,15 @@ db.data.aggregate([ {$match: {"experience_range" : {$in: ["6-10","10-15","15-20"
 db.data.aggregate([
     {$group: {_id: '$region', total: {$sum: 1}}},
     {$sort: {'total':-1}},
-    {$limit: 6}
+    {$limit: 6},
+    {$out: 'q2'}
 ])
+```
+
+To export the result
+
+```
+mongoexport --db stackoverflow --collection q2 --out q2.json
 ```
 
 3. Top 3 lenguajes más populares por año
