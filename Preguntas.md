@@ -51,12 +51,12 @@ mongoexport --db stackoverflow --collection q5 --out q5.json
 Using bash:
 
 ```
-mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["python", "Python"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{python:" {} "}" > question_answers_json/q6_python.json
+mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["python", "Python"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{\"python\":" {} "}" > question_answers_json/q6_python.json
 
 
-mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["javascript", "Javascript"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{javascript:" {} "}" > q6_python.json
+mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["javascript", "Javascript"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{\"javascript\":" {} "}" > q6_javascript.json
 
-mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["sql", "SQL"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{sql:" {} "}" > q6_python.json
+mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["sql", "SQL"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{\"sql\":" {} "}" > q6_sql.json
 ```
 
 7. En que lenguajes se sienten más insatisfechos los programadores?
