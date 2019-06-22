@@ -82,15 +82,15 @@ mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languag
 Se asume que una startup tiene menos de 25 empleados
 
 ```
-mongo --quiet stackoverflow --eval 'printjson(db.survey2011.find({"company_size_range": "1-25"}).count())' | xargs -o -I {} echo "{count:" {} "}" > q10_2011.json
+mongo --quiet stackoverflow --eval 'printjson(db.survey2011.find({"company_size_range": "1-25"}).count())' | xargs -o -I {} echo "{\"count\":" {} "}" > question_answers_json/q10_2011.json
 ```
 
 ```
-mongo --quiet stackoverflow --eval 'printjson(db.survey2012.find({"company_size_range": "1-25"}).count())' | xargs -o -I {} echo "{count:" {} "}" > q10_2012.json
+mongo --quiet stackoverflow --eval 'printjson(db.survey2012.find({"company_size_range": "1-25"}).count())' | xargs -o -I {} echo "{\"count\":" {} "}" > question_answers_json/q10_2012.json
 ```
 
 ```
-mongo --quiet stackoverflow --eval 'printjson(db.survey2013.find({"company_size_range": "1-25"}).count())' | xargs -o -I {} echo "{count:" {} "}" > q10_2013.json
+mongo --quiet stackoverflow --eval 'printjson(db.survey2013.find({"company_size_range": "1-25"}).count())' | xargs -o -I {} echo "{\"count\":" {} "}" > question_answers_json/q10_2013.json
 ```
 
 11. Evolucion del numero de programadores por tamaño de la compañia?
