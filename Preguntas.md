@@ -54,9 +54,9 @@ Using bash:
 mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["python", "Python"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{\"python\":" {} "}" > question_answers_json/q6_python.json
 
 
-mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["javascript", "Javascript"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{\"javascript\":" {} "}" > q6_javascript.json
+mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["javascript", "Javascript"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{\"javascript\":" {} "}" > question_answers_json/q6_javascript.json
 
-mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["sql", "SQL"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{\"sql\":" {} "}" > q6_sql.json
+mongo --quiet stackoverflow --eval 'printjson(db.data.find({"programming_languages" : {$in: ["sql", "SQL"]}, 'gender': {$in: ["Female","female"]}}).count())' | xargs -o -I {} echo "{\"sql\":" {} "}" > question_answers_json/q6_sql.json
 ```
 
 7. En que lenguajes se sienten más insatisfechos los programadores?
@@ -120,7 +120,7 @@ mongo --quiet stackoverflow --eval 'db.survey2017.aggregate([ {$group: {_id: "$c
 14. En cuales se paga mejor por programar en python?
 
 ```
-mongo --quiet stackoverflow --eval 'db.data.aggregate([ {$match: {'programming_languages': {$in: ['Python', 'python']}, 'salary_range': '>140k'}}, {$group: {_id: '$region'}}])' | xargs -o -I {} echo  {} > question_answers_json/q14.json
+mongo --quiet stackoverflow --eval 'db.data.aggregate([ {$match: {"programming_languages": {$in: ["Python", "python"]}, "salary_range": ">140k"}}, {$group: {_id: "$region"}}])' | xargs -o -I {} echo  {} > question_answers_json/q14.json
 ```
 
 15. Cual es el promedio de lenguajes que los programadores han utilizado?

@@ -1,1 +1,62 @@
-2019-06-21T19:31:19.591-0500 E QUERY    [js] SyntaxError: expected expression, got end of script @(shell eval):1:92
+[
+    {
+        "_id": "Peru"
+    }
+    {
+        "_id": "Belarus"
+    }
+    {
+        "_id": "New Zealand"
+    }
+    {
+        "_id": "Sweden"
+    }
+    {
+        "_id": "Oman"
+    }
+    {
+        "_id": "Afghanistan"
+    }
+    {
+        "_id": "Taiwan"
+    }
+    {
+        "_id": "Finland"
+    }
+    {
+        "_id": "Norway"
+    }
+    {
+        "_id": "Latvia"
+    }
+    {
+        "_id": "Switzerland"
+    }
+    {
+        "_id": "Estonia"
+    }
+    {
+        "_id": "Turkey"
+    }
+    {
+        "_id": "Portugal"
+    }
+    {
+        "_id": "Romania"
+    }
+    {
+        "_id": "Zimbabwe"
+    }
+    {
+        "_id": "Canada"
+    }
+    {
+        "_id": "Ireland"
+    }
+    {
+        "_id": "Italy"
+    }
+    {
+        "_id": "Netherlands"
+    }
+]
