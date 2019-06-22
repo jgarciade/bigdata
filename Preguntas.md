@@ -26,7 +26,7 @@ db.data.aggregate([
 To export the result
 
 ```
-mongoexport --db stackoverflow --collection q2 --out q2.json
+mongoexport --db stackoverflow --collection q2 --out question_answers_json/q2.json
 ```
 
 3. Top 3 lenguajes más populares por año
