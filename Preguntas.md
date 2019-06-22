@@ -1,4 +1,4 @@
-1. Cuál es la edad de los programadores senior en Alemania y en ?
+1. Cuál es la edad de los programadores senior en Alemania ?
 
 Se considera senior un ingeniero que tenga al menos seis años de experiencia
 
@@ -9,7 +9,7 @@ db.data.aggregate([ {$match: {"experience_range" : {$in: ["6-10","10-15","15-20"
 To export the result
 
 ```
-mongoexport --db stackoverflow --collection q1 --out q1.json
+mongoexport --db stackoverflow --collection q1 --out question_answers_json/q1.json
 ```
 
 2. Cuáles son los 5 paises que mas tienen programadores?
