@@ -117,11 +117,7 @@ mongo --quiet stackoverflow --eval 'db.survey2017.aggregate([ {$group: {_id: "$c
 13. Numero de programadores por lenguaje en 2017
 
 
-14. En cuales se paga mejor por programar en python?
-
-```
-mongo --quiet stackoverflow --eval 'db.data.aggregate([ {$match: {"programming_languages": {$in: ["Python", "python"]}, "salary_range": ">140k"}}, {$group: {_id: "$region"}}])' | xargs -o -I {} echo  {} > question_answers_json/q14.json
-```
+14. Cuál es el sistema operativo que usan los programadores de java?
 
 15. Cual es el promedio de lenguajes que los programadores han utilizado?
 
