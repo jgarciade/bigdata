@@ -1,3 +1,4 @@
+// User per programming language
 var m = function () {
     var data = this["programming_languages"];
     if (data != NaN && data != null) {
@@ -14,3 +15,4 @@ var r = function (key, values) {
 }
 
 db.data.mapReduce(m, r, { out: 'map_res' })
+
